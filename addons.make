@@ -3,4 +3,6 @@ ofxGui
 ofxGuiLayout
 ofxKxsLightFixtures
 ofxKxsPanTilt
+ofxMidi
 ofxOsc
+ofxPresets

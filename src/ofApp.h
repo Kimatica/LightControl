@@ -7,6 +7,9 @@
 #include "ofxGui.h"
 #include "OscControl.h"
 #include "ofxGuiLayout.h"
+#include "midiController/MidiController.h"
+#include "Grid.h"
+#include "ofxPresets.h"
 
 //
 // TODO: auto reconnect dmx
@@ -25,6 +28,7 @@ public:
     void updateDmx(vector<DmxFixture*> fixtures);
     void initGui();
     void drawDmxScene();
+    void drawGridPositions();
     
     ofxDmx dmx;
     
@@ -39,7 +43,12 @@ public:
     ofEasyCam camera;
     
     OscControl oscControl;
-    
+    MidiController midi;
+
+    ofParameterGroup presetParameters;
+
+    Grid grid;
+
     //FixtureBundle bundleBars;
     
     //
@@ -60,41 +69,20 @@ public:
         }
     }
     // blackout end
-    
-    
+     
     ofxGuiLayout panelLayout;
-    
+
+    ofxPanel guiGrid;
     ofxPanel panelGlobal;
     ofParameterGroup groupGlobal;
     ofParameter<float> smoothing;
+    ofParameter<bool> useManualControl;
+
+    ofxPresets panelPresets;
+
     void onSmoothing(float& val) {
         for (auto fixture : fixtures) {
             fixture->smoothing = smoothing;
-        }
-    }
-    
-    // house lights
-    ofxPanel panelHouseLights;
-    vector<DmxFixture*> fixturesHouse;
-    vector<DmxFixture*> fixturesSpots;
-    
-    ofParameterGroup groupHouseLights;
-    ofParameter<float> houseLightsMaster;
-    ofParameter<float> spotLightsMaster;
-    
-    void onHouseLights(float& val) {
-        for(auto fixture : fixturesHouse) {
-            if (fixture->getName() == "house_lights_flood") {
-                fixture->dimmer = val * 0.75f;
-            } else {
-                fixture->dimmer = val;
-            }
-        }
-    }
-    
-    void onSpotLights(float& val) {
-        for(auto fixture : fixturesSpots) {
-            fixture->dimmer = val;
         }
     }
 };

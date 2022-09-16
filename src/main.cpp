@@ -15,9 +15,10 @@ int main( ){
     ofGLFWWindowSettings settings;
     settings.multiMonitorFullScreen = false; // prevent expanding to two windows
     settings.title = "DMX Fixtures";
+    settings.setSize(1100, 800);
     ofAppGLFWWindow window;
     window.setup(settings);
     
-    ofSetupOpenGL(&window, 1024, 768, OF_WINDOW);
+    ofSetupOpenGL(&window, 1100, 800, OF_WINDOW);
     ofRunApp(new ofApp());
 }
